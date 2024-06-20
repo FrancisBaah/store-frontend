@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Input, message, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { GetAPI, PostAPI, baseURL } from "../Helper/constants";
 
 const AdminProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -18,19 +19,44 @@ const AdminProductPage = () => {
     return e && e.fileList;
   };
 
-  const handleOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        setProducts((prevProducts) => [...prevProducts, values]);
-        form.resetFields();
-        setIsModalVisible(false);
-        message.success("Product added successfully");
-      })
-      .catch((info) => {
-        message.error("Failed to add product");
-      });
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("price", values.price);
+      formData.append("description", values.description);
+      if (values.image && values.image[0]) {
+        formData.append("image", values.image[0].originFileObj);
+      }
+
+      const headers = { "Content-Type": "multipart/form-data" };
+      const url = "products";
+      const res = await PostAPI(url, formData, headers);
+
+      setProducts((prevProducts) => [...prevProducts, res.data]);
+      form.resetFields();
+      setIsModalVisible(false);
+      message.success("Product added successfully");
+    } catch (error) {
+      message.error("Failed to add product");
+    }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = "products";
+        const res = await GetAPI(url);
+        console.log(res.data);
+        setProducts(res.data);
+      } catch (error) {
+        message.error("Failed to fetch products");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -46,6 +72,18 @@ const AdminProductPage = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+    },
+    {
+      title: "image",
+      dataIndex: "image",
+      key: "image",
+      render: (_, record) => (
+        <img
+          src={`${baseURL}/${record?.image}`}
+          alt={record?.name}
+          className="w-10 h-10 object-cover mb-4"
+        />
+      ),
     },
     {
       title: "Description",

@@ -3,7 +3,7 @@ import { Input, message } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
-import { GetAPI } from "../Helper/constants";
+import { GetAPI, baseURL } from "../Helper/constants";
 
 const Shopping = () => {
   const [products, setProducts] = useState([]);
@@ -13,9 +13,10 @@ const Shopping = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = "";
+        const url = "products";
         const res = await GetAPI(url);
-        setProducts(res?.data);
+        console.log(res.data);
+        setProducts(res.data);
       } catch (error) {
         message.error("Failed to fetch products");
       }
@@ -26,11 +27,11 @@ const Shopping = () => {
 
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
-    message.success(`${product.title} added to cart`);
+    message.success(`${product?.name} added to cart`);
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = products?.filter((product) =>
+    product?.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -55,16 +56,16 @@ const Shopping = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredProducts.map((product) => (
             <div
-              key={product.id}
+              key={product?._id}
               className="border p-4 flex flex-col justify-between"
             >
               <img
-                src={product.image}
-                alt={product.title}
+                src={`${baseURL}/${product?.image}`}
+                alt={product?.name}
                 className="w-full h-40 object-cover mb-4"
               />
-              <h2 className="text-lg mb-2">{product.title}</h2>
-              <p className="mb-2">${product.price}</p>
+              <h2 className="text-lg mb-2">{product?.name}</h2>
+              <p className="mb-2">${product?.price}</p>
               <button
                 onClick={() => addToCart(product)}
                 className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"

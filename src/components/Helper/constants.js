@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://fakestoreapi.com/products";
+export const baseURL = "https://store-backend-r05l.onrender.com";
 
 export const GetAPI = async (url) => {
   try {
