@@ -19,6 +19,16 @@ const AdminProductPage = () => {
     return e && e.fileList;
   };
 
+  const fetchData = async () => {
+    try {
+      const url = "products";
+      const res = await GetAPI(url);
+      console.log(res.data);
+      setProducts(res.data);
+    } catch (error) {
+      message.error("Failed to fetch products");
+    }
+  };
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
@@ -37,6 +47,7 @@ const AdminProductPage = () => {
       setProducts((prevProducts) => [...prevProducts, res.data]);
       form.resetFields();
       setIsModalVisible(false);
+      fetchData();
       message.success("Product added successfully");
     } catch (error) {
       message.error("Failed to add product");
@@ -44,17 +55,6 @@ const AdminProductPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = "products";
-        const res = await GetAPI(url);
-        console.log(res.data);
-        setProducts(res.data);
-      } catch (error) {
-        message.error("Failed to fetch products");
-      }
-    };
-
     fetchData();
   }, []);
 
