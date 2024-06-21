@@ -66,6 +66,7 @@ label {
   border: 1px solid black;
   border-radius: 6px;
   height: 34px;
+  width: 100%;
 }
 .input-field,
 .ant-input {
@@ -74,4 +75,7 @@ label {
 
 .ant-select-arrow {
   color: #000 !important;
+}
+a {
+  color: rgb(14, 14, 59);
 }

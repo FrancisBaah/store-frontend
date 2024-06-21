@@ -7,6 +7,7 @@ import Canceled from "./components/Checkout/Canceled";
 import Checkout from "./components/Checkout/Checkout";
 import AuthProvider from "./components/AuthProvider";
 import AdminProductPage from "./components/ADMIN/AdminProductPage";
+import UserManagement from "./components/ADMIN/UserManagement";
 function App() {
   return (
     <AuthProvider>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/canceled" element={<Canceled />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/listing" element={<AdminProductPage />} />
+          <Route path="/users" element={<UserManagement />} />
         </Routes>
       </Router>
     </AuthProvider>

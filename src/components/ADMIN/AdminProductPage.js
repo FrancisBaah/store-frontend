@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, Form, Input, message, Upload } from "antd";
+import {
+  Table,
+  Button,
+  Modal,
+  Form,
+  Input,
+  message,
+  Upload,
+  Drawer,
+} from "antd";
+import { IoReorderThreeOutline } from "react-icons/io5";
 import { UploadOutlined } from "@ant-design/icons";
 import { GetAPI, PostAPI, baseURL } from "../Helper/constants";
+import { BiUser } from "react-icons/bi";
+import MenuItems from "./MenuItem";
 
 const AdminProductPage = () => {
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -60,6 +75,7 @@ const AdminProductPage = () => {
   }, []);
 
   const handleCancel = () => {
+    setOpen(false);
     setIsModalVisible(false);
   };
 
@@ -96,16 +112,38 @@ const AdminProductPage = () => {
   return (
     <div className="p-4">
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-xl">Admin Product Listing</h1>
-        <Button type="primary" onClick={showModal}>
-          Add New Product
-        </Button>
+        <span className="flex gap-3">
+          <IoReorderThreeOutline
+            className="h-9 w-9 cursor-pointer"
+            onClick={showDrawer}
+          />
+
+          <Drawer
+            placement="left"
+            title="Admin Management"
+            onClose={handleCancel}
+            open={open}
+          >
+            <MenuItems />
+          </Drawer>
+          <h1 className="text-xl">Admin Product Listing</h1>
+        </span>
+        <span className="flex items-center">
+          <Button type="primary" onClick={showModal}>
+            Add New Product
+          </Button>
+          <BiUser className="w-6 h-6 ml-4" />
+          <div className="flex flex-col items-center rounded-xl">
+            <h1 className="text-[11px]">Francis</h1>
+            <p className="text-[9px]">User</p>
+          </div>
+        </span>
       </header>
       <Table columns={columns} dataSource={products} rowKey="name" />
 
       <Modal
         title="Add New Product"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
