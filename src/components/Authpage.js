@@ -73,7 +73,7 @@ function AuthPage() {
     <div className="h-full w-full bg-gray-200 flex items-center justify-center">
       <div className="h-[80%] z-10 w-[80%] flex bg-white shadow-lg relative">
         <span className="w-full relative">
-          <h1 className="spin absolute left-2 top-2">bfs</h1>
+          <h1 className="spin absolute left-2 top-2">shop</h1>
           <img
             src="/store.png"
             className="w-full bg-green-800 h-full object-cover"
