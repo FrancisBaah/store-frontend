@@ -7,17 +7,6 @@
   width: 100%;
 }
 
-.input-field {
-  height: 40px;
-  top: 64px;
-  gap: 0px;
-  border-radius: 9px;
-  border: 1px 0px 0px 0px;
-  opacity: 0px;
-  border: 1px solid #f0dfdf;
-  padding: 1px 10px;
-}
-
 .spin {
   animation: logo-spin infinite 50s linear;
   pointer-events: none;
@@ -34,9 +23,9 @@
 
 .title {
   font-family: Righteous;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 400;
-  line-height: 55.63px;
+  line-height: 45px;
   text-align: left;
 }
 
@@ -44,22 +33,17 @@ label {
   font-family: Public Sans;
   font-size: 20px;
   font-weight: 400;
-  line-height: 38.27px;
+  line-height: 30px;
   text-align: left;
 }
 
-.btn,
-.no-bg-btn {
+.btn {
   background: #128cfc;
-  height: Hug (40px) px;
+  height: Hug (35px) px;
   padding: 10px 31px;
   border-radius: 10px;
   opacity: 0px;
   color: white;
-}
-.no-bg-btn {
-  background: transparent;
-  border: 1px solid blue;
 }
 
 @media (max-width: 768px) {
@@ -77,11 +61,17 @@ label {
 }
 
 .ant-select,
+.input-field,
 .ant-input {
   border: 1px solid black;
   border-radius: 6px;
   height: 34px;
 }
+.input-field,
+.ant-input {
+  padding: 1px 10px;
+}
+
 .ant-select-arrow {
   color: #000 !important;
 }

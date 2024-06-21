@@ -29,6 +29,7 @@ const AdminProductPage = () => {
       message.error("Failed to fetch products");
     }
   };
+
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
@@ -74,7 +75,7 @@ const AdminProductPage = () => {
       key: "price",
     },
     {
-      title: "image",
+      title: "Image",
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
@@ -136,7 +137,12 @@ const AdminProductPage = () => {
               { required: true, message: "Please upload the product image!" },
             ]}
           >
-            <Upload name="logo" action="/upload.do" listType="picture">
+            <Upload
+              beforeUpload={() => false}
+              name="logo"
+              action="/upload.do"
+              listType="picture"
+            >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>

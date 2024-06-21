@@ -1,47 +1,67 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PostAPI } from "./Helper/constants";
+import { useNavigate } from "react-router-dom";
+import { Select, message } from "antd";
 
 function AuthPage() {
+  const navigate = useNavigate();
   const [signUpOrIn, setSignupOrIn] = useState("login");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
+    role: "user",
   });
 
-  const { name, password, email, confirmPassword } = formData;
+  const { name, password, email, confirmPassword, role } = formData;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle Register
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      message.error("password and confirm password are not equal");
+    }
     const headers = "'Content-Type': 'application/json'";
-    const data = JSON.stringify({
+    const data = {
       name: name,
       email: email,
       password: password,
-    });
+      role: role,
+    };
     try {
-      const url = "";
+      const url = "user";
       const res = await PostAPI(url, data, headers);
       console.log(res);
+      if (res.data.role === "admin") {
+        navigate("/listing");
+      } else {
+        navigate("/Shopping");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  //Handle Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     const headers = "'Content-Type': 'application/json'";
-    const data = JSON.stringify(formData);
+    const data = { email, password };
     try {
-      const url = "";
-      // const res = await PostAPI(url, data, headers);
-      // console.log(res);
+      const url = "user/login";
+      const res = await PostAPI(url, data, headers);
+      if (res.data.role === "admin") {
+        navigate("/listing");
+      } else {
+        navigate("/Shopping");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +90,18 @@ function AuthPage() {
                 className="flex flex-col"
               >
                 <h1 className="title">Register Here</h1>
+                <label>Role</label>
+                <Select
+                  value={role}
+                  onChange={(value) =>
+                    setFormData((prev) => ({ ...prev, role: value }))
+                  }
+                  options={[
+                    { value: "admin", label: "admin" },
+                    { value: "user", label: "user" },
+                  ]}
+                  required
+                />
                 <label>Name</label>
                 <input
                   type="text"
@@ -88,24 +120,30 @@ function AuthPage() {
                   className="input-field"
                   required
                 />
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={handleInputChange}
-                  className="input-field"
-                  required
-                />
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={handleInputChange}
-                  className="p-2 mb-2 input-field"
-                  required
-                />
+                <span className="w-full flex gap-2">
+                  <label className="w-full">
+                    Password
+                    <input
+                      type="password"
+                      name="password"
+                      value={password}
+                      onChange={handleInputChange}
+                      className="input-field"
+                      required
+                    />
+                  </label>
+                  <label className="w-full">
+                    Confirm Password
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      value={confirmPassword}
+                      onChange={handleInputChange}
+                      className="p-2 mb-2 input-field"
+                      required
+                    />
+                  </label>
+                </span>
                 <button type="submit" className="btn">
                   Register
                 </button>
