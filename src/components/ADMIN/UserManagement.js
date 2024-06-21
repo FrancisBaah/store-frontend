@@ -15,8 +15,10 @@ import { BiPencil, BiTrash, BiUser } from "react-icons/bi";
 import { DeleteAPI, GetAPI, PostAPI, PutAPI } from "../Helper/constants";
 import MenuItems from "./MenuItem";
 import UpdateUser from "./UpdateUser";
+import GetUserData from "../Helper/GetUserData";
 
 const UserManagement = () => {
+  const { user } = GetUserData();
   const [users, setUsers] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalOpenEdit, setisModalOpenEdit] = useState(false);
@@ -170,8 +172,8 @@ const UserManagement = () => {
           </Button>
           <BiUser className="w-6 h-6 ml-4" />
           <div className="flex flex-col items-center rounded-xl">
-            <h1 className="text-[11px]">Francis</h1>
-            <p className="text-[9px]">User</p>
+            <h1 className="text-[11px]">{user.name}</h1>
+            <p className="text-[9px]">{user.role}</p>
           </div>
         </span>
       </header>

@@ -3,8 +3,13 @@ import axios from "axios";
 export const baseURL = "https://store-backend-r05l.onrender.com";
 
 export const GetAPI = async (url) => {
+  const authHeader = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
   try {
-    const res = await axios.get(`${baseURL}/${url}`);
+    const res = await axios.get(`${baseURL}/${url}`, authHeader);
     return res;
   } catch (error) {
     console.log(error);

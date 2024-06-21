@@ -8,20 +8,23 @@ import Checkout from "./components/Checkout/Checkout";
 import AuthProvider from "./components/AuthProvider";
 import AdminProductPage from "./components/ADMIN/AdminProductPage";
 import UserManagement from "./components/ADMIN/UserManagement";
+import StripeProvider from "./components/StripeProvider";
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<AuthPage />} />
-          <Route path="/Shopping" element={<Shopping />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/canceled" element={<Canceled />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/listing" element={<AdminProductPage />} />
-          <Route path="/users" element={<UserManagement />} />
-        </Routes>
-      </Router>
+      <StripeProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<AuthPage />} />
+            <Route path="/Shopping" element={<Shopping />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/canceled" element={<Canceled />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/listing" element={<AdminProductPage />} />
+            <Route path="/users" element={<UserManagement />} />
+          </Routes>
+        </Router>
+      </StripeProvider>
     </AuthProvider>
   );
 }

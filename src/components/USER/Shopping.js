@@ -1,15 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Input, message } from "antd";
+import { Input, Modal, message } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import { GetAPI, baseURL } from "../Helper/constants";
+import GetUserData from "../Helper/GetUserData";
+import { BiUser } from "react-icons/bi";
+import UpdateUser from "../ADMIN/UpdateUser";
 
 const Shopping = () => {
+  const { user, fetchData } = GetUserData();
   const [products, setProducts] = useState([]);
   const { cart, setCart } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [isModalOpenEdit, setisModalOpenEdit] = useState(false);
+  const handleCancel = () => {
+    setisModalOpenEdit(false);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,9 +51,27 @@ const Shopping = () => {
           placeholder="What are you looking for?"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="flex flex-col items-end">
-          <h1 className="text-base md:text-lg">Francis</h1>
-          <p className="text-sm md:text-base">User</p>
+        <div className="flex items-center">
+          <BiUser
+            onClick={() => setisModalOpenEdit(true)}
+            className="w-6 h-6 ml-4 cursor-pointer"
+          />
+          <span className="flex flex-col items-end">
+            <h1 className="text-base md:text-lg">{user.name}</h1>
+            <p className="text-sm md:text-base">{user.role}</p>
+          </span>
+          <Modal
+            footer={false}
+            open={isModalOpenEdit}
+            onOk={handleCancel}
+            onCancel={handleCancel}
+          >
+            <UpdateUser
+              record={user}
+              fetchData={fetchData}
+              handleCancel={handleCancel}
+            />
+          </Modal>
         </div>
         <Link to="/checkout" className="text-base md:text-lg">
           Cart: {cart.length}

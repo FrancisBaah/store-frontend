@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import { MdOutlineLightMode } from "react-icons/md";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IoMoonOutline } from "react-icons/io5";
 import { FaUser, FaUsers } from "react-icons/fa";
+import GetUserData from "../Helper/GetUserData";
 
 const MenuItems = () => {
   const location = useLocation();
@@ -15,6 +14,7 @@ const MenuItems = () => {
   const router = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(currentKey);
+  const { user } = GetUserData();
 
   function getItem(label, key, icon, children, type) {
     return {
@@ -55,8 +55,8 @@ const MenuItems = () => {
             <FaUser />
           </div>
           <span className="">
-            <h1 className="title">Francis</h1>
-            <label className="text-center">user</label>
+            <h1 className="title">{user.name}</h1>
+            <label className="text-center">{user.role}</label>
           </span>
         </div>
         <div

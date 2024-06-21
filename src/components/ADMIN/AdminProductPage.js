@@ -14,8 +14,10 @@ import { UploadOutlined } from "@ant-design/icons";
 import { GetAPI, PostAPI, baseURL } from "../Helper/constants";
 import { BiUser } from "react-icons/bi";
 import MenuItems from "./MenuItem";
+import GetUserData from "../Helper/GetUserData";
 
 const AdminProductPage = () => {
+  const { user } = GetUserData();
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -134,8 +136,8 @@ const AdminProductPage = () => {
           </Button>
           <BiUser className="w-6 h-6 ml-4" />
           <div className="flex flex-col items-center rounded-xl">
-            <h1 className="text-[11px]">Francis</h1>
-            <p className="text-[9px]">User</p>
+            <h1 className="text-[11px]">{user.name}</h1>
+            <p className="text-[9px]">{user.role}</p>
           </div>
         </span>
       </header>
