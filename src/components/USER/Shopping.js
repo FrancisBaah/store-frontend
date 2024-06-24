@@ -22,7 +22,6 @@ const Shopping = () => {
       try {
         const url = "products";
         const res = await GetAPI(url);
-        console.log(res.data);
         setProducts(res.data);
       } catch (error) {
         message.error("Failed to fetch products");
