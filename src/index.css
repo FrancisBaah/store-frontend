@@ -38,8 +38,8 @@ label {
 }
 
 .btn {
-  background: #128cfc;
-  height: Hug (35px) px;
+  background: #128cfc !important;
+  height: Hug 40px !important;
   padding: 10px 31px;
   border-radius: 10px;
   opacity: 0px;
