@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PostAPI } from "./Helper/constants";
 import { useNavigate } from "react-router-dom";
-import { Select, message } from "antd";
+import { Button, Select, message } from "antd";
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -146,9 +146,9 @@ function AuthPage() {
                     />
                   </label>
                 </span>
-                <button type="submit" className="btn">
+                <Button type="submit" className="btn">
                   Register
-                </button>
+                </Button>
               </motion.form>
             ) : (
               <motion.form
@@ -178,9 +178,9 @@ function AuthPage() {
                   className="input-field"
                   required
                 />
-                <button type="submit" className="btn">
+                <Button type="submit" className="btn">
                   Login
-                </button>
+                </Button>
               </motion.form>
             )}
           </AnimatePresence>
