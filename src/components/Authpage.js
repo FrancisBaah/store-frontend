@@ -146,7 +146,7 @@ function AuthPage() {
                     />
                   </label>
                 </span>
-                <button type="submit" className="btn bg-blue-700">
+                <button type="submit" className="btn">
                   Register
                 </button>
               </motion.form>
@@ -178,7 +178,7 @@ function AuthPage() {
                   className="input-field"
                   required
                 />
-                <button type="submit" className="btn bg-blue-700">
+                <button type="submit" className="btn">
                   Login
                 </button>
               </motion.form>
