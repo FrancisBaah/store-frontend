@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { PutAPI } from "../Helper/constants";
-import { Select, message } from "antd";
+import { message } from "antd";
 
-const UpdateUser = ({ record, fetchData, handleCancel }) => {
+const EditUser = ({ record, fetchData, handleCancel }) => {
   const [formData, setFormData] = useState({});
 
-  const { name, email, role } = formData;
+  const { name, email } = formData;
 
   useEffect(() => {
     record &&
@@ -25,7 +25,6 @@ const UpdateUser = ({ record, fetchData, handleCancel }) => {
       const data = {
         name,
         email,
-        role,
       };
       const res = await PutAPI(url, data);
       message.success(res.data.message);
@@ -38,16 +37,6 @@ const UpdateUser = ({ record, fetchData, handleCancel }) => {
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <h1 className="title">Update User</h1>
-      <label>Role</label>
-      <Select
-        value={role}
-        onChange={(value) => setFormData((prev) => ({ ...prev, role: value }))}
-        options={[
-          { value: "admin", label: "admin" },
-          { value: "user", label: "user" },
-        ]}
-        required
-      />
       <label>Name</label>
       <input
         type="text"
@@ -74,4 +63,4 @@ const UpdateUser = ({ record, fetchData, handleCancel }) => {
   );
 };
 
-export default UpdateUser;
+export default EditUser;
