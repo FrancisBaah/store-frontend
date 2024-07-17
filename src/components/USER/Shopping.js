@@ -84,7 +84,7 @@ const Shopping = () => {
               className="border p-4 flex flex-col justify-between"
             >
               <img
-                src={`${baseURL}/${product?.image}`}
+                src={`${product?.image}`}
                 alt={product?.name}
                 className="w-full h-40 object-cover mb-4"
               />

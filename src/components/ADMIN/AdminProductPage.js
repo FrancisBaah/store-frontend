@@ -98,7 +98,7 @@ const AdminProductPage = () => {
       key: "image",
       render: (_, record) => (
         <img
-          src={`${baseURL}/${record?.image}`}
+          src={`${record?.image}`}
           alt={record?.name}
           className="w-10 h-10 object-cover mb-4"
         />
