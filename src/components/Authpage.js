@@ -39,7 +39,6 @@ function AuthPage() {
       const url = "user";
       const res = await PostAPI(url, data, headers);
       console.log(res);
-      localStorage.setItem("token", res.data.token);
       if (res.data.role === "admin") {
         navigate("/listing");
       } else {
@@ -58,7 +57,6 @@ function AuthPage() {
     try {
       const url = "user/login";
       const res = await PostAPI(url, data, headers);
-      localStorage.setItem("token", res.data.token);
       if (res.data.role === "admin") {
         navigate("/listing");
       } else {

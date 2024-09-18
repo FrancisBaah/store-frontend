@@ -1,18 +1,22 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const baseURL = "https://store-backend-r05l.onrender.com";
 
+axios.defaults.withCredentials = true;
+const router = useNavigate();
+
 export const GetAPI = async (url) => {
-  const authHeader = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  };
   try {
-    const res = await axios.get(`${baseURL}/${url}`, authHeader);
+    const res = await axios.get(`${baseURL}/${url}`);
     return res;
   } catch (error) {
     console.log(error);
+    if (error.response && error.response.status === 401) {
+      router("/");
+    } else {
+      console.error("Error fetching data", error);
+    }
   }
 };
 export const PostAPI = async (url, data, headers) => {

@@ -6,6 +6,7 @@ import { FiUsers } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaUser, FaUsers } from "react-icons/fa";
 import GetUserData from "../Helper/GetUserData";
+import { PostAPI } from "../Helper/constants";
 
 const MenuItems = () => {
   const location = useLocation();
@@ -15,6 +16,18 @@ const MenuItems = () => {
 
   const [currentPage, setCurrentPage] = useState(currentKey);
   const { user } = GetUserData();
+
+  const logoutUser = async () => {
+    const headers = "'Content-Type': 'application/json'";
+    const data = {};
+    try {
+      const url = "user/logout";
+      await PostAPI(url, data, headers);
+      router("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function getItem(label, key, icon, children, type) {
     return {
@@ -60,7 +73,7 @@ const MenuItems = () => {
           </span>
         </div>
         <div
-          onClick={() => router("/")}
+          onClick={logoutUser}
           className="logout text-center p-2 cursor-pointer"
         >
           Log out <LogoutOutlined className="mt-1" />
