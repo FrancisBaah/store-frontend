@@ -16,8 +16,10 @@ import { DeleteAPI, GetAPI, PostAPI, PutAPI } from "../Helper/constants";
 import MenuItems from "./MenuItem";
 import UpdateUser from "./UpdateUser";
 import GetUserData from "../Helper/GetUserData";
+import { useNavigate } from "react-router-dom";
 
 const UserManagement = () => {
+  const navigate = useNavigate();
   const { user } = GetUserData();
   const [users, setUsers] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -78,7 +80,7 @@ const UserManagement = () => {
   const fetchData = async () => {
     try {
       const url = "user/all";
-      const res = await GetAPI(url);
+      const res = await GetAPI(url, navigate);
       setUsers(res.data);
     } catch (error) {
       message.error("Failed to fetch users");

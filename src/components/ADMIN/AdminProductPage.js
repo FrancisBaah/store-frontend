@@ -15,8 +15,10 @@ import { GetAPI, PostAPI, baseURL } from "../Helper/constants";
 import { BiUser } from "react-icons/bi";
 import MenuItems from "./MenuItem";
 import GetUserData from "../Helper/GetUserData";
+import { useNavigate } from "react-router-dom";
 
 const AdminProductPage = () => {
+  const navigate = useNavigate();
   const { user } = GetUserData();
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,7 +41,7 @@ const AdminProductPage = () => {
   const fetchData = async () => {
     try {
       const url = "products";
-      const res = await GetAPI(url);
+      const res = await GetAPI(url, navigate);
       console.log(res.data);
       setProducts(res.data);
     } catch (error) {

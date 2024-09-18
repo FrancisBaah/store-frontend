@@ -1,19 +1,17 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const baseURL = "https://store-backend-r05l.onrender.com";
 
 axios.defaults.withCredentials = true;
-const router = useNavigate();
 
-export const GetAPI = async (url) => {
+export const GetAPI = async (url, navigate) => {
   try {
     const res = await axios.get(`${baseURL}/${url}`);
     return res;
   } catch (error) {
     console.log(error);
     if (error.response && error.response.status === 401) {
-      router("/");
+      navigate("/");
     } else {
       console.error("Error fetching data", error);
     }
